@@ -1,52 +1,90 @@
 import { color } from "@/src/theme/color";
 import { typography } from "@/src/theme/typography";
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
-
-export const FILTERS = [
-  { label: "Todos" },
-  { label: "Pendente" },
-  { label: "Em Progresso" },
-  { label: "Resolvido" },
-];
-
-type Props = {
-  setSelectedFilter: React.Dispatch<React.SetStateAction<string>>;
-  filterSelected: string;
+type Filter = {
+  label: string;
+  count?: number;
 };
 
-export function FilterBarItem({ setSelectedFilter, filterSelected }: Props) {
+type Props = {
+  setSelectedFilter: (label: string) => void;
+  filterSelected: string;
+  separated?: boolean;
+  filters: Filter[];
+};
+
+export function FilterBarItem({
+  setSelectedFilter,
+  filterSelected,
+  separated = true,
+  filters,
+}: Props) {
   return (
     <ScrollView
-      contentContainerStyle={styles.list}
       horizontal
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[
+        styles.list,
+        separated ? styles.listSeparated : undefined,
+      ]}
     >
-      {FILTERS.map(({ label }) => (
+      {filters.map((filter) => (
         <TouchableOpacity
-          key={label}
+          key={filter.label}
           style={[
             styles.button,
             {
               backgroundColor:
-                filterSelected === label ? color.dark.black : color.dark.gray,
+                filterSelected === filter.label
+                  ? color.dark.black
+                  : color.dark.white,
+              borderWidth: filterSelected === filter.label ? 2 : 2,
+              borderColor:
+                filterSelected === filter.label
+                  ? color.dark.black
+                  : color.dark.gray,
             },
           ]}
-          onPress={() => [setSelectedFilter(label)]}
+          onPress={() => setSelectedFilter(filter.label)}
         >
-          <Text
-            style={[
-              styles.textTitle,
-              {
-                color:
-                  filterSelected === label
-                    ? color.dark.white
-                    : color.dark.black,
-              },
-            ]}
-          >
-            {label}
-          </Text>
+          <View style={styles.labelCountWrapper}>
+            <Text
+              style={[
+                styles.textTitle,
+                {
+                  color:
+                    filterSelected === filter.label
+                      ? color.dark.white
+                      : color.dark.black,
+                },
+              ]}
+            >
+              {filter.label}
+              {typeof filter.count === "number" && (
+                <Text
+                  style={[
+                    styles.countText,
+                    {
+                      color:
+                        filterSelected === filter.label
+                          ? color.dark.white
+                          : color.dark.black,
+                    },
+                  ]}
+                >
+                  {` (${filter.count})`}
+                </Text>
+              )}
+            </Text>
+          </View>
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -55,15 +93,30 @@ export function FilterBarItem({ setSelectedFilter, filterSelected }: Props) {
 
 const styles = StyleSheet.create({
   list: {
-    width: "100%",
-    justifyContent: "space-evenly",
+    alignItems: "center",
+    paddingLeft: 10,
+    paddingRight: 20,
+  },
+  listSeparated: {
+    gap: 8,
   },
   button: {
-    alignSelf: "center",
-    padding: 12,
-    borderRadius: 18,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 100,
+  },
+  labelCountWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   textTitle: {
     fontSize: typography.subhead.fontSize,
+  },
+  countContainer: {
+    marginLeft: 4,
+  },
+  countText: {
+    fontSize: typography.subhead.fontSize,
+    fontWeight: "bold",
   },
 });
