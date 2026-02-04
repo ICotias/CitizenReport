@@ -1,16 +1,28 @@
 import { ArrowLeft } from "@/src/assets/ArrowLeft";
 import { CameraIcon } from "@/src/assets/CameraIcon";
+import { CheckIcon } from "@/src/assets/CheckIcon";
 import { ClipboardIcon } from "@/src/assets/ClipboardIcon";
 import { Hospital } from "@/src/assets/Hospital";
 import { Lightbulb } from "@/src/assets/Lightbulb";
+import { MapPinIcon } from "@/src/assets/MapPin";
 import { Road } from "@/src/assets/Road";
 import { SirenIcon } from "@/src/assets/SirenIcon";
 import { Trash } from "@/src/assets/Trash";
 import { Upload } from "@/src/assets/Upload";
 import { Button } from "@/src/components/CustomButtom";
+import { CustomInput } from "@/src/components/CustomInput";
+import {
+  CostumerRouteProps,
+  CostumerStackRouteProps,
+} from "@/src/routes/CustomerRoutes";
 import { color } from "@/src/theme/color";
 import { typography } from "@/src/theme/typography";
-import { useNavigation } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
   Text,
@@ -25,7 +37,9 @@ type stepProps = "stepOne" | "stepTwo" | "stepThree" | "confirmStep";
 
 export function ReportProblem() {
   const [whichPage, setWhichPage] = useState<stepProps>("stepOne");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    "Iluminação"
+  );
 
   const CATEGORIES = [
     {
@@ -56,6 +70,12 @@ export function ReportProblem() {
     },
   ];
 
+  type NavigationProp = CompositeNavigationProp<
+    NativeStackNavigationProp<CostumerStackRouteProps>,
+    BottomTabNavigationProp<CostumerRouteProps>
+  >;
+  const navigation = useNavigation<NavigationProp>();
+
   function getProgressBarStep() {
     switch (whichPage) {
       case "stepOne":
@@ -74,7 +94,13 @@ export function ReportProblem() {
         return {
           stepText: "Passo 3/3",
           progress: "100%",
-          stepTitle: "Revisar e Enviar",
+          stepTitle: "Descrição e Localizção",
+        };
+      case "confirmStep":
+        return {
+          stepText: "",
+          progress: "0%",
+          stepTitle: "Descrição e Localizção",
         };
       default:
         return { stepText: "", progress: "0%", stepTitle: "" };
@@ -157,7 +183,6 @@ export function ReportProblem() {
             style={{
               paddingHorizontal: 24,
               marginTop: 28,
-
               width: "100%",
             }}
           >
@@ -225,21 +250,107 @@ export function ReportProblem() {
       case "stepThree":
         return (
           <View style={{ paddingHorizontal: 24, marginTop: 28, gap: 15 }}>
-            <Text style={styles.stepTitle}>{stepTitle}</Text>
+            <CustomInput
+              textStyle={styles.stepTitle}
+              headline={stepTitle}
+              placeholder="Descreva o problema..."
+              containerStyle={{
+                backgroundColor: color.dark.white,
+                paddingHorizontal: 18,
+                paddingVertical: 18,
+                height: 120,
+                borderRadius: 12,
+                borderWidth: 1,
+                justifyContent: "flex-start",
+              }}
+            />
+            <Text style={styles.stepTitle}>Localização</Text>
             <View
               style={{
                 backgroundColor: color.dark.gray,
                 justifyContent: "center",
                 alignItems: "center",
-                height: 120,
+                height: 180,
                 borderRadius: 12,
                 gap: 10,
+                borderWidth: 1,
+                borderColor: color.dark.darkGray,
               }}
             >
               <Text style={{ color: color.dark.darkGray }}>
-                [Revisar informações]
+                [Mapa para selecionar local]
               </Text>
             </View>
+            <Button
+              icon={<MapPinIcon size={22} />}
+              title="Usar Minha Localização Atual"
+              variant="outlined"
+              textStyle={{ fontSize: 16, fontWeight: "400" }}
+              style={{ borderColor: color.dark.darkGray }}
+            />
+          </View>
+        );
+      case "confirmStep":
+        return (
+          <View
+            style={{
+              paddingHorizontal: 24,
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              gap: 10,
+            }}
+          >
+            <View
+              style={{
+                height: 70,
+                width: 70,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "100%",
+                backgroundColor: color.dark.black,
+              }}
+            >
+              <CheckIcon size={36} color={color.dark.white} />
+            </View>
+            <Text
+              style={{
+                fontWeight: "300",
+                fontSize: 18,
+              }}
+            >
+              Relatório Enviado!
+            </Text>
+            <Text
+              style={{
+                fontWeight: "300",
+              }}
+            >
+              Seu relatório foi recebido com sucesso.
+            </Text>
+            <Text
+              style={{
+                backgroundColor: color.dark.gray,
+                padding: 14,
+                borderRadius: 12,
+                fontWeight: "300",
+              }}
+            >
+              Protocolo: #12345
+            </Text>
+            <Button
+              title="Acompanhar Solicitação"
+              textStyle={{ fontSize: 16 }}
+              onPress={() =>
+                navigation.navigate("Tabs", { screen: "Requests" })
+              }
+            />
+            <Button
+              title="Voltar ao Início"
+              variant="outlined"
+              textStyle={{ fontSize: 16 }}
+              onPress={() => navigation.goBack()}
+            />
           </View>
         );
       default:
@@ -248,7 +359,6 @@ export function ReportProblem() {
   }
 
   const { stepText, progress } = getProgressBarStep();
-  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -256,7 +366,11 @@ export function ReportProblem() {
         <TouchableOpacity onPress={goBackState}>
           <ArrowLeft />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Reportar Problema</Text>
+        {whichPage === "confirmStep" ? (
+          <Text style={styles.headerTitle}>Confirmação</Text>
+        ) : (
+          <Text style={styles.headerTitle}>Reportar Problema</Text>
+        )}
         <Text style={styles.headerStep}>{stepText}</Text>
       </View>
       <View style={styles.progressBarWrapper}>
@@ -275,7 +389,6 @@ export function ReportProblem() {
       </View>
     </SafeAreaView>
   );
-  3;
 }
 
 const styles = StyleSheet.create({

@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-export function MapPinIcon({ size = 32, color = "#000000" }) {
+export function MapPinIcon({ size = 24, color = "#000000" }) {
   return (
     <View>
       <Svg width={size} height={size} fill={color} viewBox="0 0 256 256">

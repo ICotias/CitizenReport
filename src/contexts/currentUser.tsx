@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 type CurrentUserContextProps = {
   currentUser: Boolean | null;
   login: () => void;
+  logout: () => void;
 };
 
 const CurrentUserContext = createContext<CurrentUserContextProps>(
@@ -18,9 +19,12 @@ export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
   function login() {
     setCurrentUser(true);
   }
+  function logout() {
+    setCurrentUser(false);
+  }
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, login }}>
+    <CurrentUserContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </CurrentUserContext.Provider>
   );

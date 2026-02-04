@@ -7,6 +7,13 @@ import { FlatList, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Funnel from "@/src/assets/Funnel";
 
+const FILTERS = [
+  { label: "Todos" },
+  { label: "Pendente" },
+  { label: "Em Progresso" },
+  { label: "Resolvido" },
+];
+
 export function RequestScreen() {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
 
@@ -38,7 +45,7 @@ export function RequestScreen() {
   ];
 
   const filteredMockRequests = mockRequests.filter(
-    (item) => item.progress === selectedFilter
+    (item) => item.progress === selectedFilter,
   );
 
   return (
@@ -52,6 +59,7 @@ export function RequestScreen() {
         <FilterBarItem
           filterSelected={selectedFilter}
           setSelectedFilter={setSelectedFilter}
+          filters={FILTERS}
         />
       </View>
       <FlatList
@@ -81,11 +89,11 @@ const styles = StyleSheet.create({
   },
   filterBarWrapper: {
     paddingVertical: 8,
-    backgroundColor: color.dark.white,
+    width: "100%",
     borderBottomWidth: 2,
     borderColor: color.dark.gray,
-    width: "100%",
     justifyContent: "center",
+    backgroundColor: color.dark.white,
   },
   list: {
     flex: 1,

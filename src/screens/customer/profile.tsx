@@ -5,13 +5,18 @@ import { WorldIcon } from "@/src/assets/WorldIcon";
 import { Button } from "@/src/components/CustomButtom";
 
 import { CustomerScreensHeader } from "@/src/components/CustomerScreensHeader";
-import { PerfilCard } from "@/src/components/PerfilCard";
+import { ProfileCard } from "@/src/components/ProfileCard";
 import { color } from "@/src/theme/color";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CostumerRouteProps } from "@/src/routes/CustomerRoutes";
+import { Leave } from "@/src/assets/Leave";
+import {
+  CurrentUserProvider,
+  useCurrentUser,
+} from "@/src/contexts/currentUser";
 
 const perfilCardMock = [
   {
@@ -46,61 +51,72 @@ export function ProfileScreen({ route }: ProfileScreenProps) {
   const { name, email, city, neighborhood, reports, resolvedReports, months } =
     route.params;
 
+  const { logout } = useCurrentUser();
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <CustomerScreensHeader title="Perfil" nav={() => {}} />
 
-      <View style={styles.container}>
-        <View style={styles.rowInfo}>
-          <View style={styles.profileAvatar}>
-            <User color={color.dark.black} />
+      <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
+        <View style={styles.container}>
+          <View style={styles.rowInfo}>
+            <View style={styles.profileAvatar}>
+              <User color={color.dark.black} />
+            </View>
+
+            <View style={styles.userDetails}>
+              <Text style={{ fontSize: 14, fontWeight: "400" }}>{name}</Text>
+              <Text style={{ fontSize: 13, fontWeight: "300" }}>{email}</Text>
+              <Text style={{ fontSize: 12, fontWeight: "300" }}>
+                {city} - {neighborhood}
+              </Text>
+            </View>
           </View>
 
-          <View style={styles.userDetails}>
-            <Text style={{ fontSize: 14, fontWeight: "400" }}>{name}</Text>
-            <Text style={{ fontSize: 13, fontWeight: "300" }}>{email}</Text>
-            <Text style={{ fontSize: 12, fontWeight: "300" }}>
-              {city} - {neighborhood}
-            </Text>
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text>{reports}</Text>
+              <Text style={styles.statLabel}>Relatórios</Text>
+            </View>
+
+            <View style={styles.statItem}>
+              <Text>{resolvedReports}</Text>
+              <Text style={styles.statLabel}>Resolvidos</Text>
+            </View>
+
+            <View style={styles.statItem}>
+              <Text>{months}</Text>
+              <Text style={styles.statLabel}>Meses</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text>{reports}</Text>
-            <Text style={styles.statLabel}>Relatórios</Text>
-          </View>
+        <View style={styles.cardsContainer}>
+          {perfilCardMock.map((item, index) => (
+            <ProfileCard
+              key={index}
+              icon={item.icon}
+              title={item.title}
+              description={item.description}
+              navigation={() => item.navigation}
+            />
+          ))}
 
-          <View style={styles.statItem}>
-            <Text>{resolvedReports}</Text>
-            <Text style={styles.statLabel}>Resolvidos</Text>
-          </View>
-
-          <View style={styles.statItem}>
-            <Text>{months}</Text>
-            <Text style={styles.statLabel}>Meses</Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.cardsContainer}>
-        {perfilCardMock.map((item, index) => (
-          <PerfilCard
-            key={index}
-            icon={item.icon}
-            title={item.title}
-            description={item.description}
-            navigation={() => item.navigation}
+          <Button
+            title="Contatar a Prefeitura"
+            variant="outlined"
+            style={{ borderColor: color.dark.gray, marginTop: 36 }}
+            textStyle={{ fontSize: 14, fontWeight: "300" }}
           />
-        ))}
-
-        <Button
-          title="Contatar a Prefeitura"
-          variant="outlined"
-          style={{ borderColor: color.dark.gray, marginTop: 36 }}
-          textStyle={{ fontSize: 14, fontWeight: "300" }}
-        />
-      </View>
+          <Button
+            icon={<Leave size={20} color={color.dark.white} />}
+            title="Sair da Conta"
+            style={{ borderColor: color.dark.gray, marginTop: 12 }}
+            textStyle={{ fontSize: 14, fontWeight: "500" }}
+            onPress={logout}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

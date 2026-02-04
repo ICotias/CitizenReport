@@ -1,10 +1,9 @@
-import Funnel from "@/src/assets/Funnel";
 import { color } from "@/src/theme/color";
 import { typography } from "@/src/theme/typography";
 import { Text, TouchableOpacity, View } from "react-native";
 
 type Props = {
-  nav: () => void;
+  nav?: () => void;
   title: string;
   icon?: React.JSX.Element;
 };
@@ -22,6 +21,8 @@ export function CustomerScreensHeader({ nav, title, icon }: Props) {
         paddingBottom: 18,
       }}
     >
+      <TouchableOpacity onPress={nav}>{icon}</TouchableOpacity>
+
       <Text
         style={{
           fontSize: typography.body.fontSize,
@@ -30,7 +31,6 @@ export function CustomerScreensHeader({ nav, title, icon }: Props) {
       >
         {title}
       </Text>
-      <TouchableOpacity onPress={nav}>{icon}</TouchableOpacity>
     </View>
   );
 }

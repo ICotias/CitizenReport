@@ -9,9 +9,10 @@ import { color } from "@/src/theme/color";
 import { typography } from "@/src/theme/typography";
 import { useNavigation } from "@react-navigation/native";
 
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Map } from "@/src/components/Map";
 
 const recentActivities = [
   {
@@ -73,30 +74,21 @@ export function HomeScreen() {
             </Text>
           </View>
 
-          <View
+          <TouchableOpacity
             style={{
               alignSelf: "center",
               width: "85%",
               height: 240,
-              backgroundColor: color.light.gray,
               borderRadius: 12,
-              padding: 20,
+              padding: 1,
               borderWidth: 1,
               borderColor: color.light.darkGray,
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundColor: color.light.darkGray,
               marginTop: -70,
             }}
           >
-            <Text
-              style={{
-                color: color.light.darkGray,
-                fontSize: typography.body.fontSize,
-              }}
-            >
-              [Mapa com relatórios próximos]
-            </Text>
-          </View>
+            <Map />
+          </TouchableOpacity>
 
           <View
             style={{
@@ -124,10 +116,10 @@ export function HomeScreen() {
               />
               <HomeCard
                 title="Minhas Solicitações"
+                iconType="papers"
                 onPress={() => tabNavigation.navigate("Requests")}
               />
             </View>
-
             <Spacer size="md" />
 
             <View
@@ -137,8 +129,16 @@ export function HomeScreen() {
                 justifyContent: "space-between",
               }}
             >
-              <HomeCard title="Notícias da Cidade" iconType="papers" />
-              <HomeCard title="Eventos" iconType="calendar" />
+              <HomeCard
+                title="Enquete"
+                iconType="graphic"
+                onPress={() => stackNavigation.navigate("survey")}
+              />
+              <HomeCard
+                title="Mapa"
+                iconType="map"
+                onPress={() => stackNavigation.navigate("map")}
+              />
             </View>
             <Spacer size="xl" />
             <Text style={{ fontSize: typography.h2.fontSize }}>

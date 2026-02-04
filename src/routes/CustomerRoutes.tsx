@@ -1,16 +1,20 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen } from "@/src/screens/customer/home";
-import { MessagesScreen } from "@/src/screens/customer/messages";
-import { ProfileScreen } from "@/src/screens/customer/profile";
-import { RequestScreen } from "@/src/screens/customer/requests";
-import { ReportProblem } from "@/src/screens/customer/reportProblem";
+
+import { HomeScreen } from "@/src/screens/customer/Home";
+import { MessagesScreen } from "@/src/screens/customer/Messages";
+import { ProfileScreen } from "@/src/screens/customer/Profile";
+import { RequestScreen } from "@/src/screens/customer/Requests";
+import { ReportProblem } from "@/src/screens/customer/ReportProblem";
 
 import { User } from "@/src/assets/User";
 import { Home } from "@/src/assets/Home";
 import { FileTextIcon } from "@/src/assets/FileText";
 import { MessageIcon } from "@/src/assets/MessageIcon";
 import { color } from "@/src/theme/color";
+import { NavigatorScreenParams } from "@react-navigation/native";
+import { SurveyScreen } from "@/src/screens/customer/Survey";
+import { ProblemsMap } from "@/src/screens/customer/ProblemsMap";
 
 export type CostumerRouteProps = {
   Home: undefined;
@@ -28,8 +32,10 @@ export type CostumerRouteProps = {
 };
 
 export type CostumerStackRouteProps = {
-  Tabs: undefined;
+  Tabs: NavigatorScreenParams<CostumerRouteProps>;
   reportProblem: undefined;
+  survey: undefined;
+  map: undefined;
 };
 
 const Tab = createBottomTabNavigator<CostumerRouteProps>();
@@ -39,6 +45,7 @@ function Tabs() {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           height: 80,
           paddingHorizontal: 35,
@@ -46,7 +53,6 @@ function Tabs() {
         },
         tabBarActiveTintColor: color.dark.black,
         tabBarInactiveTintColor: "rgba(0, 0, 0, 0.5)",
-        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -58,6 +64,7 @@ function Tabs() {
           ),
         }}
       />
+
       <Tab.Screen
         name="Requests"
         component={RequestScreen}
@@ -67,6 +74,7 @@ function Tabs() {
           ),
         }}
       />
+
       <Tab.Screen
         name="Messages"
         component={MessagesScreen}
@@ -76,6 +84,7 @@ function Tabs() {
           ),
         }}
       />
+
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
@@ -100,17 +109,11 @@ function Tabs() {
 
 export function CustomerRoutes() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Tabs"
-        component={Tabs}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="reportProblem"
-        component={ReportProblem}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="reportProblem" component={ReportProblem} />
+      <Stack.Screen name="survey" component={SurveyScreen} />
+      <Stack.Screen name="map" component={ProblemsMap} />
     </Stack.Navigator>
   );
 }

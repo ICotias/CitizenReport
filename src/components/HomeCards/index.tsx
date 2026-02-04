@@ -1,3 +1,4 @@
+import { Graphic } from "@/src/assets/Graphic";
 import { color } from "@/src/theme/color";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -6,31 +7,23 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 type HomeCardProps = {
   title: string;
   description?: string;
-  iconType?: "plus" | "calendar" | "papers" | "exclamation";
+  iconType?: "plus" | "map" | "papers" | "graphic";
   onPress?: () => void;
 };
 
 const iconMap = {
   plus: <Ionicons name="add-outline" size={32} color={color.light.black} />,
-  calendar: (
-    <Ionicons
-      name="calendar-clear-outline"
-      size={32}
-      color={color.light.black}
-    />
-  ),
   papers: (
     <Ionicons name="newspaper-outline" size={32} color={color.light.black} />
   ),
-  exclamation: (
-    <Ionicons name="alert-circle-outline" size={32} color={color.light.black} />
-  ),
+  map: <Ionicons name="map-outline" size={32} color={color.light.black} />,
+  graphic: <Graphic size={32} />,
 };
 
 export function HomeCard({
   title,
   description,
-  iconType = "papers",
+  iconType = "map",
   onPress,
 }: HomeCardProps) {
   return (

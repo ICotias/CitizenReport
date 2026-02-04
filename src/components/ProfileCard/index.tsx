@@ -2,19 +2,19 @@ import { ChevronRight } from "@/src/assets/ChevronRight";
 import { color } from "@/src/theme/color";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export type PerfilCardProps = {
+export type ProfileCardProps = {
   icon: React.JSX.Element;
   title: string;
   description: string;
   navigation: () => {};
 };
 
-export function PerfilCard({
+export function ProfileCard({
   icon,
   title,
   description,
   navigation,
-}: PerfilCardProps) {
+}: ProfileCardProps) {
   return (
     <TouchableOpacity style={styles.container} onPress={navigation}>
       <View style={styles.icon}>{icon}</View>
