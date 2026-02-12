@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type RoadProps = SvgProps & {
+type RoadIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Road({ size = 24, color = "#000", ...props }: RoadProps) {
+export function RoadIcon({
+  size = 24,
+  color = "#000",
+  ...props
+}: RoadIconProps) {
   return (
     <Svg
       width={size}

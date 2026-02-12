@@ -1,32 +1,32 @@
-import { Bell } from "@/src/assets/Bell";
+import { BellIcon } from "@/src/assets/BellIcon";
 import { QuestionIcon } from "@/src/assets/QuestionIcon";
-import { User } from "@/src/assets/User";
+import { UserIcon } from "@/src/assets/UserIcon";
 import { WorldIcon } from "@/src/assets/WorldIcon";
 import { Button } from "@/src/components/CustomButtom";
-
 import { CustomerScreensHeader } from "@/src/components/CustomerScreensHeader";
 import { ProfileCard } from "@/src/components/ProfileCard";
 import { color } from "@/src/theme/color";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { CostumerRouteProps } from "@/src/routes/CustomerRoutes";
-import { Leave } from "@/src/assets/Leave";
 import {
-  CurrentUserProvider,
-  useCurrentUser,
-} from "@/src/contexts/currentUser";
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LeaveIcon } from "@/src/assets/LeaveIcon";
+import { useCurrentUser } from "@/src/contexts/currentUser";
+import { useUserStats } from "@/src/hooks/useUserState";
 
 const perfilCardMock = [
   {
-    icon: <User color={color.dark.black} />,
+    icon: <UserIcon color={color.dark.black} />,
     title: "Editar Perfil",
     description: "Alterar foto, nome e informações",
     navigation: () => {},
   },
   {
-    icon: <Bell color={color.dark.black} />,
+    icon: <BellIcon color={color.dark.black} />,
     title: "Configurações de Notificação",
     description: "Veja ou edite dados da sua conta",
     navigation: () => {},
@@ -45,13 +45,15 @@ const perfilCardMock = [
   },
 ];
 
-type ProfileScreenProps = BottomTabScreenProps<CostumerRouteProps, "Profile">;
+export function ProfileScreen() {
+  const { logout, currentUser } = useCurrentUser();
+  const { totalReports, resolvedReports, accountAgeMonths, loading } =
+    useUserStats();
 
-export function ProfileScreen({ route }: ProfileScreenProps) {
-  const { name, email, city, neighborhood, reports, resolvedReports, months } =
-    route.params;
-
-  const { logout } = useCurrentUser();
+  const name = currentUser?.displayName || "Usuário";
+  const email = currentUser?.email || "";
+  const city = "Feira de Santana";
+  const neighborhood = "Centro";
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -61,7 +63,7 @@ export function ProfileScreen({ route }: ProfileScreenProps) {
         <View style={styles.container}>
           <View style={styles.rowInfo}>
             <View style={styles.profileAvatar}>
-              <User color={color.dark.black} />
+              <UserIcon color={color.dark.black} />
             </View>
 
             <View style={styles.userDetails}>
@@ -73,22 +75,28 @@ export function ProfileScreen({ route }: ProfileScreenProps) {
             </View>
           </View>
 
-          <View style={styles.statsContainer}>
-            <View style={styles.statItem}>
-              <Text>{reports}</Text>
-              <Text style={styles.statLabel}>Relatórios</Text>
+          {loading ? (
+            <View style={styles.statsContainer}>
+              <ActivityIndicator size="small" color={color.dark.black} />
             </View>
+          ) : (
+            <View style={styles.statsContainer}>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{totalReports}</Text>
+                <Text style={styles.statLabel}>Relatórios</Text>
+              </View>
 
-            <View style={styles.statItem}>
-              <Text>{resolvedReports}</Text>
-              <Text style={styles.statLabel}>Resolvidos</Text>
-            </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{resolvedReports}</Text>
+                <Text style={styles.statLabel}>Resolvidos</Text>
+              </View>
 
-            <View style={styles.statItem}>
-              <Text>{months}</Text>
-              <Text style={styles.statLabel}>Meses</Text>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{accountAgeMonths}</Text>
+                <Text style={styles.statLabel}>Meses</Text>
+              </View>
             </View>
-          </View>
+          )}
         </View>
 
         <View style={styles.cardsContainer}>
@@ -109,7 +117,7 @@ export function ProfileScreen({ route }: ProfileScreenProps) {
             textStyle={{ fontSize: 14, fontWeight: "300" }}
           />
           <Button
-            icon={<Leave size={20} color={color.dark.white} />}
+            icon={<LeaveIcon size={20} color={color.dark.white} />}
             title="Sair da Conta"
             style={{ borderColor: color.dark.gray, marginTop: 12 }}
             textStyle={{ fontSize: 14, fontWeight: "500" }}
@@ -156,8 +164,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 5,
   },
+  statValue: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: color.dark.black,
+  },
   statLabel: {
     fontWeight: "300",
+    fontSize: 12,
+    color: color.dark.gray,
   },
   cardsContainer: {
     paddingHorizontal: 24,

@@ -1,7 +1,16 @@
 import * as React from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, SvgProps } from "react-native-svg";
 
-export function CameraIcon({ size = 32, color = "#000000", ...props }) {
+type CameraIconProps = SvgProps & {
+  size?: number;
+  color?: string;
+};
+
+export function CameraIcon({
+  size = 32,
+  color = "#000",
+  ...props
+}: CameraIconProps) {
   return (
     <Svg
       width={size}

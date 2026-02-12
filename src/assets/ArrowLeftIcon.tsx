@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type ArrowRightProps = SvgProps & {
+type ArrowLeftIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function ArrowRight({
-  size = 32,
+export function ArrowLeftIcon({
+  size = 24,
   color = "#000",
   ...props
-}: ArrowRightProps) {
+}: ArrowLeftIconProps) {
   return (
     <Svg
       width={size}
@@ -19,10 +19,7 @@ export function ArrowRight({
       viewBox="0 0 256 256"
       {...props}
     >
-      <Path d="M184.49,136.49l-72,72a12,12,0,0,1-17-17L159,128,95.51,64.49a12,12,0,0,1,17-17l72,72A12,12,0,0,1,184.49,136.49Z" />
+      <Path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z" />
     </Svg>
   );
 }
-
-export default ArrowRight;
-

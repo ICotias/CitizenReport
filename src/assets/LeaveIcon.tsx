@@ -2,12 +2,16 @@ import * as React from "react";
 
 import { Svg, Path, SvgProps } from "react-native-svg";
 
-type LeaveProps = SvgProps & {
+type LeaveIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Leave({ size = 24, color = "black", ...props }: LeaveProps) {
+export function LeaveIcon({
+  size = 24,
+  color = "black",
+  ...props
+}: LeaveIconProps) {
   return (
     <Svg
       width={size}

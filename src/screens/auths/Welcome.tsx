@@ -1,6 +1,6 @@
-import { FileTextIcon } from "@/src/assets/FileText";
-import { MapPinIcon } from "@/src/assets/MapPin";
-import { UsersIcon } from "@/src/assets/Users";
+import { FileTextIcon } from "@/src/assets/FileTextIcon";
+import { MapPinIcon } from "@/src/assets/MapPinIcon";
+import { UsersIcon } from "@/src/assets/UsersIcon";
 import { Button } from "@/src/components/CustomButtom";
 import { AuthRouteProps } from "@/src/routes/AuthRoutes";
 import { color } from "@/src/theme/color";

@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type HospitalProps = SvgProps & {
+type HospitalIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Hospital({
+export function HospitalIcon({
   size = 24,
   color = "#000",
   ...props
-}: HospitalProps) {
+}: HospitalIconProps) {
   return (
     <Svg
       width={size}

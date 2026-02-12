@@ -1,4 +1,4 @@
-import { Bell } from "@/src/assets/Bell";
+import { BellIcon } from "@/src/assets/BellIcon";
 import { CustomerScreensHeader } from "@/src/components/CustomerScreensHeader";
 import { MessageCard, MessageTypeProps } from "@/src/components/MessageCard";
 import { FlatList, View } from "react-native";
@@ -41,7 +41,11 @@ export function MessagesScreen() {
   ];
   return (
     <SafeAreaView>
-      <CustomerScreensHeader nav={() => {}} title="Mensagens" icon={<Bell />} />
+      <CustomerScreensHeader
+        nav={() => {}}
+        title="Mensagens"
+        icon={<BellIcon />}
+      />
       <View>
         <FlatList
           data={mockMessages}

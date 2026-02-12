@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type TrashProps = SvgProps & {
+type TrashIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Trash({ size = 24, color = "#000", ...props }: TrashProps) {
+export function TrashIcon({
+  size = 24,
+  color = "#000",
+  ...props
+}: TrashIconProps) {
   return (
     <Svg
       width={size}

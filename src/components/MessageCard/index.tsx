@@ -1,6 +1,6 @@
-import { Bell } from "@/src/assets/Bell";
-import { ChevronRight } from "@/src/assets/ChevronRight";
-import { Point } from "@/src/assets/Point";
+import { BellIcon } from "@/src/assets/BellIcon";
+import { ChevronRightIcon } from "@/src/assets/ChevronRightIcon";
+import { PointIcon } from "@/src/assets/PointIcon";
 import { color } from "@/src/theme/color";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -85,7 +85,7 @@ export function MessageCard({
           },
         ]}
       >
-        <Bell
+        <BellIcon
           size={22}
           color={
             type === "ReportNotification" || type === "AtualizationNotification"
@@ -109,12 +109,12 @@ export function MessageCard({
           flexDirection: "row",
         }}
       >
-        <ChevronRight color={color.dark.darkGray} size={16} />
+        <ChevronRightIcon color={color.dark.darkGray} size={16} />
         {type === "ReportNotification" ||
         type === "AtualizationNotification" ? (
-          <Point size={16} style={{ marginTop: 10, marginLeft: 15 }} />
+          <PointIcon size={16} style={{ marginTop: 10, marginLeft: 15 }} />
         ) : (
-          <Point
+          <PointIcon
             size={16}
             style={{ marginTop: 10, marginLeft: 15 }}
             color={color.dark.lightGray}

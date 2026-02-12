@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type CameraProps = SvgProps & {
+type ArrowRightIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Camera({
+export function ArrowRightIcon({
   size = 32,
   color = "#000",
   ...props
-}: CameraProps) {
+}: ArrowRightIconProps) {
   return (
     <Svg
       width={size}
@@ -19,8 +19,7 @@ export function Camera({
       viewBox="0 0 256 256"
       {...props}
     >
-      <Path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" />
+      <Path d="M184.49,136.49l-72,72a12,12,0,0,1-17-17L159,128,95.51,64.49a12,12,0,0,1,17-17l72,72A12,12,0,0,1,184.49,136.49Z" />
     </Svg>
   );
 }
-

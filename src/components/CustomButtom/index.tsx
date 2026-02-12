@@ -18,6 +18,7 @@ type Props = ButtonProps & {
   textColor?: string;
   textStyle?: StyleProp<TextStyle>;
   icon?: React.JSX.Element;
+  loading?: boolean;
 };
 
 export function Button({
@@ -28,6 +29,7 @@ export function Button({
   textColor,
   textStyle,
   icon,
+  loading,
   ...rest
 }: Props) {
   let buttonStyle: StyleProp<ViewStyle>;

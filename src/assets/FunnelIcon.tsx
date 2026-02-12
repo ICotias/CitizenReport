@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type FunnelProps = SvgProps & {
+type FunnelIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Funnel({ size = 24, color = "#000", ...props }: FunnelProps) {
+export function FunnelIcon({
+  size = 24,
+  color = "#000",
+  ...props
+}: FunnelIconProps) {
   return (
     <Svg
       width={size}
@@ -19,5 +23,3 @@ export function Funnel({ size = 24, color = "#000", ...props }: FunnelProps) {
     </Svg>
   );
 }
-
-export default Funnel;

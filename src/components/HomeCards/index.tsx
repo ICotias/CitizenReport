@@ -1,4 +1,4 @@
-import { Graphic } from "@/src/assets/Graphic";
+import { GraphicIcon } from "@/src/assets/GraphicIcon";
 import { color } from "@/src/theme/color";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -17,7 +17,7 @@ const iconMap = {
     <Ionicons name="newspaper-outline" size={32} color={color.light.black} />
   ),
   map: <Ionicons name="map-outline" size={32} color={color.light.black} />,
-  graphic: <Graphic size={32} />,
+  graphic: <GraphicIcon size={32} />,
 };
 
 export function HomeCard({

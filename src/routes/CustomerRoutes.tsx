@@ -5,16 +5,16 @@ import { HomeScreen } from "@/src/screens/customer/Home";
 import { MessagesScreen } from "@/src/screens/customer/Messages";
 import { ProfileScreen } from "@/src/screens/customer/Profile";
 import { RequestScreen } from "@/src/screens/customer/Requests";
-import { ReportProblem } from "@/src/screens/customer/ReportProblem";
 
-import { User } from "@/src/assets/User";
-import { Home } from "@/src/assets/Home";
-import { FileTextIcon } from "@/src/assets/FileText";
+import { UserIcon } from "@/src/assets/UserIcon";
+import { HomeIcon } from "@/src/assets/HomeIcon";
+import { FileTextIcon } from "@/src/assets/FileTextIcon";
 import { MessageIcon } from "@/src/assets/MessageIcon";
 import { color } from "@/src/theme/color";
 import { NavigatorScreenParams } from "@react-navigation/native";
 import { SurveyScreen } from "@/src/screens/customer/Survey";
 import { ProblemsMap } from "@/src/screens/customer/ProblemsMap";
+import { ReportProblem } from "@/src/screens/customer/ReportProblem";
 
 export type CostumerRouteProps = {
   Home: undefined;
@@ -33,9 +33,15 @@ export type CostumerRouteProps = {
 
 export type CostumerStackRouteProps = {
   Tabs: NavigatorScreenParams<CostumerRouteProps>;
-  reportProblem: undefined;
+  ReportProblem: undefined;
   survey: undefined;
-  map: undefined;
+  map:
+    | {
+        focusedReportId?: string;
+        latitude?: number;
+        longitude?: number;
+      }
+    | undefined;
 };
 
 const Tab = createBottomTabNavigator<CostumerRouteProps>();
@@ -60,7 +66,7 @@ function Tabs() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ size = 24, color }) => (
-            <Home color={color} size={size} />
+            <HomeIcon color={color} size={size} />
           ),
         }}
       />
@@ -99,7 +105,7 @@ function Tabs() {
         }}
         options={{
           tabBarIcon: ({ size = 24, color }) => (
-            <User color={color} size={size} />
+            <UserIcon color={color} size={size} />
           ),
         }}
       />
@@ -111,7 +117,7 @@ export function CustomerRoutes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen name="reportProblem" component={ReportProblem} />
+      <Stack.Screen name="ReportProblem" component={ReportProblem} />
       <Stack.Screen name="survey" component={SurveyScreen} />
       <Stack.Screen name="map" component={ProblemsMap} />
     </Stack.Navigator>

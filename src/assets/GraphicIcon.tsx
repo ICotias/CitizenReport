@@ -1,16 +1,16 @@
 import * as React from "react";
 import { Svg, Path, SvgProps } from "react-native-svg";
 
-type GraphicProps = SvgProps & {
+type GraphicIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Graphic({
+export function GraphicIcon({
   size = 24,
   color = "#000000",
   ...props
-}: GraphicProps) {
+}: GraphicIconProps) {
   return (
     <Svg
       width={size}

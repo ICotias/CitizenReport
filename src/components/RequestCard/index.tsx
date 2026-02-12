@@ -1,6 +1,6 @@
-import { ChevronRight } from "@/src/assets/ChevronRight";
+import { ChevronRightIcon } from "@/src/assets/ChevronRightIcon";
 import { color } from "@/src/theme/color";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 export type progressFilterProps = "Pendente" | "Em Progresso" | "Resolvido";
 
@@ -11,6 +11,7 @@ type Props = {
   date: string;
   type: string;
   progress: progressFilterProps;
+  onPress?: () => void; // Nova prop para navegação
 };
 
 function getContainerProgressColor(progress: progressFilterProps) {
@@ -25,6 +26,7 @@ function getContainerProgressColor(progress: progressFilterProps) {
       return { backgroundColor: color.dark.gray };
   }
 }
+
 function getContainerProgressTextColor(progress: progressFilterProps) {
   switch (progress) {
     case "Resolvido":
@@ -41,11 +43,24 @@ export function RequestCard({
   date,
   type,
   progress,
+  onPress,
 }: Props) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
       <View style={styles.photoContainer}>
-        <Text style={styles.photoText}>[foto]</Text>
+        {image ? (
+          <Image
+            source={{ uri: image }}
+            style={styles.photoImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <Text style={styles.photoText}>Sem foto</Text>
+        )}
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.id}>{id}</Text>
@@ -61,7 +76,7 @@ export function RequestCard({
           </Text>
         </View>
       </View>
-      <ChevronRight color={color.dark.darkGray} />
+      <ChevronRightIcon color={color.dark.darkGray} />
     </TouchableOpacity>
   );
 }
@@ -84,9 +99,16 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
+  },
+  photoImage: {
+    height: 70,
+    width: 70,
+    borderRadius: 12,
   },
   photoText: {
     color: "white",
+    textAlign: "center",
   },
   infoContainer: {
     gap: 6,

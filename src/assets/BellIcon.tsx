@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type BellProps = SvgProps & {
+type BellIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Bell({ size = 24, color = "#000", ...props }: BellProps) {
+export function BellIcon({
+  size = 24,
+  color = "#000",
+  ...props
+}: BellIconProps) {
   return (
     <Svg
       width={size}

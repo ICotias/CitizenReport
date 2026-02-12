@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type UploadProps = SvgProps & {
+type UploadIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Upload({ size = 24, color = "#000", ...props }: UploadProps) {
+export function UploadIcon({
+  size = 24,
+  color = "#000",
+  ...props
+}: UploadIconProps) {
   return (
     <Svg
       width={size}

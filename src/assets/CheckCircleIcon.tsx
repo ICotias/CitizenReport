@@ -2,17 +2,17 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 
 // AQuela braba
-type CheckCircleProps = {
+type CheckCircleIconProps = {
   size?: number;
   color?: string;
   style?: object;
 };
 
-export function CheckCircle({
+export function CheckCircleIcon({
   size = 32,
   color = "#000000",
   style = {},
-}: CheckCircleProps) {
+}: CheckCircleIconProps) {
   return (
     <Svg
       width={size}

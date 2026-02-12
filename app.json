@@ -32,6 +32,13 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Permitir acesso à localização."
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Precisamos acessar suas fotos",
+          "cameraPermission": "Precisamos acessar sua câmera para tirar fotos"
+        }
       ]
     ]
   }

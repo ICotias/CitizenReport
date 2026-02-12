@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-type HomeProps = {
+type HomeIconProps = {
   color?: string;
   size?: number;
 } & React.ComponentProps<typeof Svg>;
 
-export function Home({ color = "#000", size = 24, ...props }: HomeProps) {
+export function HomeIcon({
+  color = "#000",
+  size = 24,
+  ...props
+}: HomeIconProps) {
   return (
     <Svg
       width={size}

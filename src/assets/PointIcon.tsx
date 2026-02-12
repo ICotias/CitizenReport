@@ -2,13 +2,17 @@ import * as React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-type PointProps = {
+type PointIconProps = {
   size?: number;
   color?: string;
   style?: StyleProp<ViewStyle>;
 };
 
-export function Point({ size = 24, color = "#000000", style }: PointProps) {
+export function PointIcon({
+  size = 24,
+  color = "#000000",
+  style,
+}: PointIconProps) {
   return (
     <Svg
       width={size}

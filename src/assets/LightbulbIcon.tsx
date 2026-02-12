@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type LightbulbProps = SvgProps & {
+type LightbulbIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Lightbulb({
+export function LightbulbIcon({
   size = 24,
   color = "#000",
   ...props
-}: LightbulbProps) {
+}: LightbulbIconProps) {
   return (
     <Svg
       width={size}

@@ -1,12 +1,16 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-type UserProps = {
+type UserIconProps = {
   color?: string;
   size?: number;
 } & React.ComponentProps<typeof Svg>;
 
-export function User({ color = "#000", size = 24, ...props }: UserProps) {
+export function UserIcon({
+  color = "#000",
+  size = 24,
+  ...props
+}: UserIconProps) {
   return (
     <Svg
       width={size}

@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-type ShieldProps = SvgProps & {
+type ShieldIconProps = SvgProps & {
   size?: number;
   color?: string;
 };
 
-export function Shield({
+export function ShieldIcon({
   size = 32,
   color = "#000",
   ...props
-}: ShieldProps) {
+}: ShieldIconProps) {
   return (
     <Svg
       width={size}
@@ -23,4 +23,3 @@ export function Shield({
     </Svg>
   );
 }
-

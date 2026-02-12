@@ -1,4 +1,4 @@
-import { ArrowLeft } from "@/src/assets/ArrowLeft";
+import { ArrowLeftIcon } from "@/src/assets/ArrowLeftIcon";
 import { color } from "@/src/theme/color";
 import { typography } from "@/src/theme/typography";
 import { useNavigation } from "@react-navigation/native";
@@ -37,7 +37,7 @@ export function Header({ label, rightIcon, leftIcon, style }: Props) {
     >
       {leftIcon ? (
         <TouchableOpacity onPress={navigation.goBack}>
-          <ArrowLeft size={24} />
+          <ArrowLeftIcon size={24} />
         </TouchableOpacity>
       ) : null}
       <Text style={{ fontSize: typography.h2.fontSize }}>{label}</Text>

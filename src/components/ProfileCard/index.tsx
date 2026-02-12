@@ -1,4 +1,4 @@
-import { ChevronRight } from "@/src/assets/ChevronRight";
+import { ChevronRightIcon } from "@/src/assets/ChevronRightIcon";
 import { color } from "@/src/theme/color";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -22,7 +22,7 @@ export function ProfileCard({
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
       </View>
-      <ChevronRight color={color.dark.darkGray} size={16} />
+      <ChevronRightIcon color={color.dark.darkGray} size={16} />
     </TouchableOpacity>
   );
 }
